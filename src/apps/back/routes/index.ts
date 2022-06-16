@@ -3,7 +3,6 @@ import glob from 'glob'
 
 export function registerRoutes(router: Router) {
   const routes = glob.sync(__dirname + '/?*Route.ts')
-  console.log(routes)
   routes.map(route => register(route, router))
 }
 
