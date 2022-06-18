@@ -1,6 +1,6 @@
 import express from 'express'
 
-import { registerRoutes } from './routes/index'
+import { registerRoutes } from './routes/index.js'
 
 export class Server {
   private express: express.Express

@@ -1,12 +1,20 @@
 import { Router } from 'express'
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
 import glob from 'glob'
 
-export function registerRoutes(router: Router) {
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+export async function registerRoutes(router: Router) {
   const routes = glob.sync(__dirname + '/?*Route.ts')
-  routes.map(route => register(route, router))
+  routes.map(async route => await register(
+    route.replace(__dirname, '.'),
+    router
+  ))
 }
 
-function register(routePath: string, router: Router) {
-  const { route } = require(routePath)
+async function register(routePath: string, router: Router) {
+  const { route } = await import(routePath)
   route.register(router)
 }
