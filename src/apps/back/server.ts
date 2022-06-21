@@ -13,22 +13,32 @@ export class Server {
     this.express = express()
 
     this.express.use(express.json()) // middleware que transforma la req.body a un json
-
     // app.use(express.urlencoded({ extended: true }));
-    registerRoutes(this.express)
+  }
+
+  async loadRoutes() {
+    await registerRoutes(this.express)
 
     this.express.get('/ping', async (_req, res) => {
-      await new Promise(resolve => {
-        setTimeout(() => { resolve('foo') }, 2000)
+      await new Promise<void>(resolve => {
+        setTimeout(() => { resolve() }, 3000)
       })
 
       res.send('pong')
     })
   }
 
-  listen(): void {
-    this.httpServer = this.express.listen(this.port, () => {
-      console.log(`Server runnig on port ${this.port}`)
+  listen(): Promise<void> {
+    return new Promise(resolve => {
+      this.httpServer = this.express.listen(this.port, () => {
+        console.log(`Server runnig on port ${this.port}`)
+
+        fetch('http://localhost:3000/status').then(response => {
+          console.log(response.status)
+        })
+      })
+
+      this.httpServer.on('listening', resolve)
     })
   }
 

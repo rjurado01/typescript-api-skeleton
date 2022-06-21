@@ -8,10 +8,12 @@ const __dirname = dirname(__filename);
 
 export async function registerRoutes(router: Router) {
   const routes = glob.sync(__dirname + '/?*Route.ts')
-  routes.map(async route => await register(
+  const loaders = routes.map(route => register(
     route.replace(__dirname, '.'),
     router
   ))
+
+  await Promise.all(loaders)
 }
 
 async function register(routePath: string, router: Router) {
