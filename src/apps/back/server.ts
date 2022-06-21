@@ -1,10 +1,12 @@
 import express from 'express'
+import { Server as HttpServer} from 'http'
 
 import { registerRoutes } from './routes/index.js'
 
 export class Server {
   private express: express.Express
   private port: string
+  private httpServer?: HttpServer
 
   constructor(port: string) {
     this.port = port
@@ -25,8 +27,18 @@ export class Server {
   }
 
   listen(): void {
-    this.express.listen(this.port, () => {
+    this.httpServer = this.express.listen(this.port, () => {
       console.log(`Server runnig on port ${this.port}`)
     })
+  }
+
+  stop(): void {
+    if (this.httpServer) {
+      this.httpServer.close()
+    }
+  }
+
+  getHttpServer() {
+    return this.httpServer
   }
 }

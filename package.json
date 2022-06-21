@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node ./dist/src/server.js",
-    "dev": "nodemon -e ts -w ./src -x ts-node-esm src/apps/back/app.ts",
+    "dev": "nodemon -e ts -w ./src -x ts-node-esm src/apps/back/start.ts",
     "build": "tsc",
     "lint": "eslint --ignore-path .gitignore . --ext .ts",
     "lint:fix": "npm run lint -- --fix",
