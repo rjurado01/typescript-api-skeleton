@@ -32,23 +32,25 @@ export class Server {
     return new Promise(resolve => {
       this.httpServer = this.express.listen(this.port, () => {
         console.log(`Server runnig on port ${this.port}`)
-
-        fetch('http://localhost:3000/status').then(response => {
-          console.log(response.status)
-        })
       })
 
       this.httpServer.on('listening', resolve)
     })
   }
 
-  stop(): void {
-    if (this.httpServer) {
-      this.httpServer.close()
-    }
+  stop(): Promise<void> {
+    return new Promise(resolve => {
+      if (this.httpServer) {
+        this.httpServer.close()
+
+        this.httpServer.on('close', resolve)
+      }
+
+      resolve()
+    })
   }
 
   getHttpServer() {
-    return this.httpServer
+    return this.express
   }
 }

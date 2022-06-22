@@ -11,7 +11,11 @@ export class BackApp {
     this.server.listen()
   }
 
-  stop() {
-    this.server?.stop()
+  async stop() {
+    return this.server?.stop()
+  }
+
+  getHttpServer() {
+    return this.server?.getHttpServer
   }
 }
