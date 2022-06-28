@@ -1,13 +1,15 @@
-module.exports = {
+export default {
   globals: {
     "ts-jest": {
       tsconfig: "tsconfig.json",
-    },
+      useESM: true
+    }
   },
-  moduleFileExtensions: ["ts", "js"],
-  transform: {
-    "^.+\\.(ts|tsx)$": "ts-jest",
+  preset: 'ts-jest/presets/default-esm',
+  extensionsToTreatAsEsm: ['.ts'],
+  moduleNameMapper: {
+    '^(\\.{1,2}/.*)\\.js$': '$1',
   },
-  testMatch: ["**/test/**/*.spec.(ts|js)"],
+  testMatch: ["**/test/**/*.test.(ts|js)"],
   testEnvironment: "node",
 };

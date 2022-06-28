@@ -1,6 +1,5 @@
 import express from 'express'
 import { Server as HttpServer} from 'http'
-
 import { registerRoutes } from './routes/index.js'
 
 export class Server {
@@ -17,14 +16,10 @@ export class Server {
   }
 
   async loadRoutes() {
-    await registerRoutes(this.express)
+    // await registerRoutes(this.express)
 
-    this.express.get('/ping', async (_req, res) => {
-      await new Promise<void>(resolve => {
-        setTimeout(() => { resolve() }, 3000)
-      })
-
-      res.send('pong')
+    this.express.get('/', (_req, res) => {
+      res.status(200).send('home')
     })
   }
 
