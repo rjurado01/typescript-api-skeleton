@@ -1,6 +1,6 @@
 import express from 'express'
 import { Server as HttpServer} from 'http'
-import { registerRoutes } from './routes/index.js'
+import { registerRoutes } from './routes/index'
 
 export class Server {
   private express: express.Express
@@ -16,7 +16,7 @@ export class Server {
   }
 
   async loadRoutes() {
-    // await registerRoutes(this.express)
+    await registerRoutes(this.express)
 
     this.express.get('/', (_req, res) => {
       res.status(200).send('home')

@@ -1,6 +1,6 @@
-import {asValue, asClass} from 'awilix'
+import {asClass, asValue} from 'awilix'
 
-import {StatusGetController} from '../controllers/StatusGetController.js'
+import {StatusGetController} from '../controllers/StatusGetController'
 
 export const dependencies = {
   statusMsg: asValue('ok'),

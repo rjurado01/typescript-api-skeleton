@@ -1,7 +1,7 @@
 import { Request, Response, Router } from 'express'
 
 import { StatusGetController } from '../controllers/StatusGetController'
-import { statusGetController } from '../di/container.js'
+import { statusGetController } from '../di/container'
 import { Route } from './Route'
 
 export const route: Route = {

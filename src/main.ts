@@ -1,4 +1,4 @@
-import { Server } from './server.js'
+import { Server } from './server'
 
 const app = async () => {
   const server = new Server(process.env.PORT || '3000')
