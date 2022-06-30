@@ -1,4 +1,5 @@
 import { container, setup } from './di/container'
+import { Route } from './routes/Route'
 import { Server } from './server'
 
 export class BackApp {
@@ -11,7 +12,13 @@ export class BackApp {
 
     this.server = new Server(process.env.PORT || '3000')
 
-    await this.server.loadRoutes()
+    const routes: Route[] = Object.keys(container.registrations).filter(
+      item => item.match(/Route$/)
+    ).map((name): Route => {
+      return container.resolve(name)
+    })
+
+    this.server.loadRoutes(routes)
 
     this.server.listen()
   }

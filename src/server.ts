@@ -1,7 +1,7 @@
 import express from 'express'
 import { Server as HttpServer} from 'http'
 
-import { registerRoutes } from './routes/index'
+import { Route } from './routes/Route'
 
 export class Server {
   private express: express.Express
@@ -16,8 +16,10 @@ export class Server {
     // app.use(express.urlencoded({ extended: true }));
   }
 
-  async loadRoutes() {
-    await registerRoutes(this.express)
+  loadRoutes(routes: Route[] = []) {
+    routes.forEach(route => {
+      route.register(this.express)
+    })
 
     this.express.get('/', (_req, res) => {
       res.status(200).send('home')

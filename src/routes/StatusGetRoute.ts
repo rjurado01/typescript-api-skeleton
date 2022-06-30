@@ -6,8 +6,8 @@ import { Route } from './Route'
 export class StatusGetRoute implements Route {
   controller: Controller
 
-  constructor(controller: Controller) {
-    this.controller = controller
+  constructor(statusGetController: Controller) {
+    this.controller = statusGetController
   }
 
   register(router: Router): void {
