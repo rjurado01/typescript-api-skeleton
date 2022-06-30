@@ -1,5 +1,6 @@
 import express from 'express'
 import { Server as HttpServer} from 'http'
+
 import { registerRoutes } from './routes/index'
 
 export class Server {

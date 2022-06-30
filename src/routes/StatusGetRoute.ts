@@ -1,13 +1,16 @@
 import { Request, Response, Router } from 'express'
 
-import { StatusGetController } from '../controllers/StatusGetController'
-import { statusGetController } from '../di/container'
+import { Controller } from '../controllers/Controller'
 import { Route } from './Route'
 
-export const route: Route = {
-  register: (router: Router) => {
-    const controller: StatusGetController = statusGetController
+export class StatusGetRoute implements Route {
+  controller: Controller
 
-    router.get('/status', (req: Request, res: Response) => controller.run(req, res))
+  constructor(controller: Controller) {
+    this.controller = controller
+  }
+
+  register(router: Router): void {
+    router.get('/status', (req: Request, res: Response) => this.controller.run(req, res))
   }
 }

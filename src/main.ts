@@ -1,11 +1,9 @@
-import { Server } from './server'
+import { BackApp } from './BackApp'
 
-const app = async () => {
-  const server = new Server(process.env.PORT || '3000')
+const run = async () => {
+  const app = new BackApp()
 
-  await server.loadRoutes()
-
-  return server.listen()
+  await app.start()
 }
 
-app()
+run()

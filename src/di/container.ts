@@ -1,13 +1,18 @@
 import {createContainer, InjectionMode} from 'awilix'
 
-const env = process.env.NODE_ENV || 'dev'
-
 const container = createContainer({
   injectionMode: InjectionMode.CLASSIC
 })
 
-const { dependencies } = require(`./dependencies_${env}`)
+const setup = async (env: string | undefined) => {
+  if (!env) return
 
-container.register(dependencies)
+  const { dependencies } = await import(`./dependencies_${env}`)
 
-export const statusGetController = container.resolve('statusGetController')
+  return container.register(dependencies)
+}
+
+export {
+  container,
+  setup
+}
